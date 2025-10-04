@@ -1,0 +1,12 @@
+Django==4.2.7
+psycopg2-binary==2.9.9
+Pillow==10.1.0
+pytesseract==0.3.10
+python-decouple==3.8
+requests==2.31.0
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+django-widget-tweaks==1.5.0
+reportlab==4.0.7
+opencv-python==4.8.1.78
+numpy==1.24.3

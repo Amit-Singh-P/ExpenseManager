@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard - CompanyOS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #25252b;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .admin-panel {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            width: 280px;
+            background: #1a1a1f;
+            border-right: 2px solid rgba(228, 96, 51, 0.3);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .admin-logo {
+            padding: 0 30px 30px;
+            border-bottom: 2px solid rgba(228, 96, 51, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .admin-logo h2 {
+            color: #e46033;
+            font-size: 24px;
+        }
+
+        .admin-menu {
+            list-style: none;
+        }
+
+        .admin-menu li {
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .admin-menu li:hover,
+        .admin-menu li.active {
+            background: rgba(228, 96, 51, 0.1);
+            border-left-color: #e46033;
+        }
+
+        .admin-menu a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+        }
+
+        .admin-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(228, 96, 51, 0.3);
+        }
+
+        .admin-header h1 {
+            font-size: 36px;
+            color: #e46033;
+        }
+
+        .logout-btn {
+            padding: 10px 25px;
+            background: #e46033;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: #ff7648;
+            transform: translateY(-2px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(228, 96, 51, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(228, 96, 51, 0.3);
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #e46033;
+            box-shadow: 0 10px 20px rgba(228, 96, 51, 0.3);
+        }
+
+        .stat-card h3 {
+            font-size: 40px;
+            color: #e46033;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .users-table {
+            width: 100%;
+            background: rgba(228, 96, 51, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(228, 96, 51, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .users-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .users-table th,
+        .users-table td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .users-table th {
+            background: rgba(228, 96, 51, 0.2);
+            color: #e46033;
+            font-weight: 600;
+        }
+
+        .users-table tr:hover {
+            background: rgba(228, 96, 51, 0.1);
+        }
+
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #FFC107;
+            color: #000;
+        }
+
+        .status-approved {
+            background: #4CAF50;
+            color: #fff;
+        }
+
+        .status-rejected {
+            background: #f44336;
+            color: #fff;
+        }
+
+        .action-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .btn-approve {
+            background: #4CAF50;
+            color: #fff;
+        }
+
+        .btn-reject {
+            background: #f44336;
+            color: #fff;
+        }
+
+        .btn-view {
+            background: #2196F3;
+            color: #fff;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            color: #e46033;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-panel">
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>CompanyOS Manager</h2>
+            </div>
+            <ul class="admin-menu">
+                <li class="active"><a href="/dashboard/manager">📊 Dashboard</a></li>
+                <li><a href="/dashboard/manager/team">👥 My Team</a></li>
+                <li><a href="/expenses/submit">💰 Submit Expense</a></li>
+                <li><a href="/expenses/list">📋 My Expenses</a></li>
+                <li><a href="/expenses/approve">✅ Approve Expenses</a></li>
+            </ul>
+        </div>
+        
+        <div class="admin-content">
+            <div class="admin-header">
+                <div>
+                    <h1>Manager Dashboard</h1>
+                    <p>Welcome back, <strong>{{ user.name }}</strong></p>
+                </div>
+                <a href="/auth/logout" class="logout-btn">Logout</a>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>{{ stats.team_size }}</h3>
+                    <p>Team Members</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ stats.pending_approvals }}</h3>
+                    <p>Pending Approvals</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ stats.total_expenses }}</h3>
+                    <p>Total Expenses</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ currency }}{{ stats.approved_amount }}</h3>
+                    <p>Approved This Month</p>
+                </div>
+            </div>
+
+            <h2>Pending Expense Approvals</h2>
+            <div class="users-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Title</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in pending_expenses %}
+                        <tr>
+                            <td>{{ expense.employee_name }}</td>
+                            <td>{{ expense.title }}</td>
+                            <td>{{ currency }}{{ expense.amount }}</td>
+                            <td>{{ expense.category }}</td>
+                            <td>{{ expense.date }}</td>
+                            <td><span class="status-badge status-{{ expense.status }}">{{ expense.status|upper }}</span></td>
+                            <td>
+                                <a href="/expenses/{{ expense.id }}" class="action-btn btn-view">View</a>
+                                <button class="action-btn btn-approve" onclick="approveExpense({{ expense.id }})">Approve</button>
+                                <button class="action-btn btn-reject" onclick="rejectExpense({{ expense.id }})">Reject</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>My Team</h2>
+            <div class="users-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Position</th>
+                            <th>Expenses This Month</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for member in team_members %}
+                        <tr>
+                            <td>{{ member.name }}</td>
+                            <td>{{ member.email }}</td>
+                            <td>{{ member.position }}</td>
+                            <td>{{ member.expenses_count }} ({{ currency }}{{ member.expenses_total }})</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function approveExpense(id) {
+            if (confirm('Approve this expense?')) {
+                fetch(`/expenses/${id}/approve`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'}
+                }).then(() => location.reload());
+            }
+        }
+
+        function rejectExpense(id) {
+            const reason = prompt('Reason for rejection:');
+            if (reason) {
+                fetch(`/expenses/${id}/reject`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({reason})
+                }).then(() => location.reload());
+            }
+        }
+    </script>
+</body>
+</html>

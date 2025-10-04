@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CompanyOS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #25252b;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .admin-panel {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            width: 280px;
+            background: #1a1a1f;
+            border-right: 2px solid rgba(228, 96, 51, 0.3);
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .admin-logo {
+            padding: 0 30px 30px;
+            border-bottom: 2px solid rgba(228, 96, 51, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .admin-logo h2 {
+            color: #e46033;
+            font-size: 24px;
+        }
+
+        .admin-menu {
+            list-style: none;
+        }
+
+        .admin-menu li {
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .admin-menu li:hover,
+        .admin-menu li.active {
+            background: rgba(228, 96, 51, 0.1);
+            border-left-color: #e46033;
+        }
+
+        .admin-menu a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+        }
+
+        .admin-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(228, 96, 51, 0.3);
+        }
+
+        .admin-header h1 {
+            font-size: 36px;
+            color: #e46033;
+        }
+
+        .logout-btn {
+            padding: 10px 25px;
+            background: #e46033;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .logout-btn:hover {
+            background: #ff7648;
+            transform: translateY(-2px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(228, 96, 51, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(228, 96, 51, 0.3);
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #e46033;
+        }
+
+        .stat-card h3 {
+            font-size: 40px;
+            color: #e46033;
+            margin-bottom: 10px;
+        }
+
+        .stat-card p {
+            color: #ccc;
+            font-size: 16px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            background: #e46033;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: #ff7648;
+            transform: translateY(-2px);
+        }
+
+        .users-table {
+            width: 100%;
+            background: rgba(228, 96, 51, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(228, 96, 51, 0.3);
+        }
+
+        .users-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .users-table th,
+        .users-table td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .users-table th {
+            background: rgba(228, 96, 51, 0.2);
+            color: #e46033;
+            font-weight: 600;
+        }
+
+        .users-table tr:hover {
+            background: rgba(228, 96, 51, 0.1);
+        }
+
+        .role-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .role-admin {
+            background: #e46033;
+            color: #fff;
+        }
+
+        .role-manager {
+            background: #4CAF50;
+            color: #fff;
+        }
+
+        .role-employee {
+            background: #2196F3;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-panel">
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>CompanyOS Admin</h2>
+            </div>
+            <ul class="admin-menu">
+                <li class="active"><a href="/dashboard/admin">📊 Dashboard</a></li>
+                <li><a href="/dashboard/admin/employees">👥 Employees</a></li>
+                <li><a href="/dashboard/admin/managers">👔 Managers</a></li>
+                <li><a href="/expenses/list">💰 Expenses</a></li>
+                <li><a href="/expenses/approval-rules">📋 Approval Rules</a></li>
+                <li><a href="/dashboard/admin/company">🏢 Company Settings</a></li>
+            </ul>
+        </div>
+        
+        <div class="admin-content">
+            <div class="admin-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Company: <strong>{{ company.name }}</strong> | Currency: <strong>{{ company.currency }}</strong></p>
+                </div>
+                <a href="/auth/logout" class="logout-btn">Logout</a>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>{{ stats.total_employees }}</h3>
+                    <p>Total Employees</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ stats.total_managers }}</h3>
+                    <p>Total Managers</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ stats.total_users }}</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ stats.pending_expenses }}</h3>
+                    <p>Pending Expenses</p>
+                </div>
+            </div>
+
+            <h2 style="color: #e46033; margin-bottom: 20px;">Recent Activity</h2>
+            <div class="users-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in recent_users %}
+                        <tr>
+                            <td>{{ user.name }}</td>
+                            <td><span class="role-badge role-{{ user.role }}">{{ user.role|upper }}</span></td>
+                            <td>{{ user.email }}</td>
+                            <td>Active</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
