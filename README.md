@@ -2,7 +2,7 @@ This project, **CompanyOS**, is a responsive Company Management System built as 
 
 Here is the `README.md` for the provided `index.html` file.
 
-```markdown
+
 # CompanyOS - The Ultimate Company Management System
 
 **CompanyOS** is a modern, responsive single-page application (SPA) designed for efficient company management. It features a sleek, dark-themed user interface, an engaging landing page with dynamic effects, a smooth, interactive authentication modal, and a comprehensive, role-based admin panel.
@@ -68,4 +68,4 @@ This project is a client-side SPA and can be run directly in any web browser.
 2.  **Open `index.html`** in your web browser.
 
 **Note:** Since this is a front-end only implementation, the `handleLogin`, `handleRegister`, and admin panel functions currently simulate API calls and manage application state within the browser's memory (`appState` object). A real-world application would require a backend (like Django, Node.js, or similar) to persist data and handle authentication securely.
-```
+
